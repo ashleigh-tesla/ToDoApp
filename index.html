@@ -11,17 +11,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <script src="static/js/toDoApp.js" defer></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-    </style>
 </head>
 
 <body>
     <form>
         <div class="container justify-content-center align-items-center p-sm-5">
             <div class="mb-3">
-                <label for="" class="form-label">Full Name</label>
+                <label for="jackSparrow johnDeere" class="form-label">Full Name</label>
                 <span class="text-danger">*</span>
                 <div class="">
                     <div class="row">
@@ -37,12 +33,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail" class="form-label">Email Address</label>
-                <span class="text-danger">*</span>
-                <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Email Address">
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
 
             <div class="mb-3">
@@ -83,18 +73,18 @@
             <div class="mb-3">
                 <label for="exampleDataList" class="form-label">Subject</label>
                 <span class="text-danger">*</span>
-                <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Subject">
+                <input class="form-control" list="datalistOptions" id="exampleDataList" aria-describedby="subjectHelp" placeholder="Subject">
                 <datalist id="datalistOptions">
                     <option value="Advertise">
                     <option value="General">
                     <option value="Partnership">
                 </datalist>
-                <div id="emailHelp" class="form-text">We'll never share thy subject with anyone else.</div>
+                <div id="subjectHelp" class="form-text">We'll never share thy subject with anyone else.</div>
             </div>
 
 
             <div class="mb-3">
-                <label for="" class="form-label">Task</label>
+                <label for="firstInputField secondInputField" class="form-label">Task</label>
                 <span class="text-danger">*</span>
                 <div class="">
                     <div class="row">
@@ -113,22 +103,17 @@
                 <button id="addToDo">+</button>
             </div>
             <div class="toDo mb-3" id="toDoContainer">
-                <p>Tanaka</p>
-                <p>Tesla</p>
-            </div>
 
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <span class="text-danger">*</span>
-                <input type="password" class="form-control" id="exampleInputPassword1">
             </div>
             <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                <input type="checkbox" class="form-check-input" id="exampleCheck">
+                <label class="form-check-label" for="exampleCheck">Check me out</label>
             </div>
             <button type="submit" class="btn btn-outline-primary">Submit</button>
         </div>
     </form>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <script src="static/js/toDoApp.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
 </body>
