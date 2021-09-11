@@ -24,7 +24,10 @@ html {
 }
 
 .to-dos {
-    border: 1px solid #000
+    border: 1px solid #000;
+    border-style: dotted;
+    background: coral;
+    color: #fff;
 }
 
 #error_message {
