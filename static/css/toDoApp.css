@@ -24,10 +24,14 @@ html {
 }
 
 .to-dos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border: 1px solid #000;
     border-style: dotted;
     background: coral;
-    color: #fff;
+    color: #fff
 }
 
 #error_message {
@@ -41,12 +45,25 @@ html {
     transition: all .5s ease
 }
 
-.paragraph-styling,
 p {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-style: italic;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.paragraph-styling {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: larger;
+    font-style: normal;
+    font-variant: 700;
+    font-weight: 700;
     margin: 0;
     cursor: pointer;
     font-size: 20px

@@ -130,7 +130,26 @@ addToDoButton.addEventListener('click', function() {
         {
             var paragraph = document.createElement('p')
             paragraph.classList.add('paragraph-styling')
-            paragraph.innerText = secondInputField.value
+
+            // storing data
+            let firstInput = (firstInputField.value).toString()
+            firstInput = JSON.stringify(firstInput);
+            localStorage.setItem("testJSON", firstInput)
+
+            //Retrieving data
+            let first = localStorage.getItem("testJSON");
+            let myFirst = JSON.parse(first);
+
+            // storing data
+            let secondInput = (secondInputField.value).toString()
+            secondInput = JSON.stringify(secondInput);
+            localStorage.setItem("taskList", secondInput)
+
+            //Retrieving data
+            let second = localStorage.getItem("taskList");
+            let mySecond = JSON.parse(second);
+
+            paragraph.innerText = mySecond
             toDoContainer.appendChild(paragraph)
             firstInputField.value = ""
             secondInputField.value = ''
@@ -145,12 +164,18 @@ addToDoButton.addEventListener('click', function() {
         paragraph.addEventListener('dblclick', function() {
             toDoContainer.removeChild(paragraph)
         })
-    } else if (firstInputField.value == '') {
+        localStorage.setItem('testJSON', JSON.stringify(firstInput))
+        localStorage.setItem('taskList', JSON.stringify(secondInput))
+    } else if (firstInputField.value == '' && secondInputField.value == '') {
         let text = "Please Fill In Thy Today's Task"
         console.log(text)
         alert(text);
-    } else if (secondInputField.value == '') {
-        let text = "Please Fill In Thy Today's Task"
+    } else if (firstInputField.value == '' && secondInputField.value != '') {
+        let text = "Please Input New Task"
+        console.log(text)
+        alert(text);
+    } else if (firstInputField.value != '' && secondInputField.value == '') {
+        let text = "Please Confirm New Task"
         console.log(text)
         alert(text);
     } else if (firstInputField.value != secondInputField.value) {
