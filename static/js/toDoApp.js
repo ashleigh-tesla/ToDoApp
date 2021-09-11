@@ -115,7 +115,7 @@ function validateUser(event) {
     newUser.newTask = y
     newUser.confirmedTask = z
 
-    document.writeln("<p>Submited on:</p>")
+    document.writeln("<p>Form Submitted On:</p>")
     document.writeln(new Date())
     alert("Form Submitted Successfully!");
 }
@@ -164,8 +164,6 @@ addToDoButton.addEventListener('click', function() {
         paragraph.addEventListener('dblclick', function() {
             toDoContainer.removeChild(paragraph)
         })
-        localStorage.setItem('testJSON', JSON.stringify(firstInput))
-        localStorage.setItem('taskList', JSON.stringify(secondInput))
     } else if (firstInputField.value == '' && secondInputField.value == '') {
         let text = "Please Fill In Thy Today's Task"
         console.log(text)
