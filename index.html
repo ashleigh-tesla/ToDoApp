@@ -15,7 +15,7 @@
 
 <body>
     <div class="container justify-content-center align-items-center p-sm-5">
-        <form method="" action="" autocomplete="on" id="myform" onsubmit="return validate();">
+        <form method="" action="" autocomplete="on" id="myform" onsubmit="validateUser(event);">
             <div class="mb-3">
                 <p id="error_message"></p>
             </div>
@@ -25,12 +25,12 @@
                 <div class="">
                     <div class="row">
                         <div class="col-sm-6">
-                            <input type="name" class="form-control" id="firstName" aria-describedby="jackSparrow" placeholder="First" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
+                            <input type="name" class="form-control" id="firstName" aria-describedby="jackSparrow" placeholder="First" onfocus="this.firstName=''" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
                             <div id="jackSparrow" class="form-text">We'll never share thy first name with anyone else.
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <input type="name" class="form-control" id="secondName" aria-describedby="johnDeere" placeholder="Last" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
+                            <input type="name" class="form-control" id="secondName" aria-describedby="johnDeere" placeholder="Last" onfocus="this.secondName=''" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
                             <div id="johnDeere" class="form-text">We'll never share thy last name with anyone else.
                             </div>
                         </div>
@@ -76,7 +76,7 @@
             <div class="mb-3">
                 <label for="exampleDataList" class="form-label">Subject</label>
                 <span class="text-danger">*</span>
-                <input class="form-control" list="datalistOptions" id="exampleDataList" aria-describedby="subjectHelp" placeholder="Subject" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
+                <input class="form-control" list="datalistOptions" id="exampleDataList" aria-describedby="subjectHelp" placeholder="Subject" onfocus="this.exampleDataList=''" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
                 <datalist id="datalistOptions">
                     <option value="Advertise">
                     <option value="General">
@@ -92,11 +92,11 @@
                 <div class="">
                     <div class="row">
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="firstInputField" aria-describedby="taskHelp" placeholder="New Task" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
+                            <input type="text" class="form-control" id="firstInputField" aria-describedby="taskHelp" placeholder="New Task" onfocus="this.newTask=''" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
                             <div id="taskHelp" class="form-text">We'll never share your task with anyone else.</div>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="secondInputField" aria-describedby="myTask" placeholder="Confirm Task" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
+                            <input type="text" class="form-control" id="secondInputField" aria-describedby="myTask" placeholder="Confirm Task" onfocus="this.confirmedTask=''" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
                             <div id="myTask" class="form-text">We'll never share your task with anyone else.</div>
                         </div>
                     </div>
