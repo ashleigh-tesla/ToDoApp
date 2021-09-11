@@ -14,20 +14,23 @@
 </head>
 
 <body>
-    <form>
-        <div class="container justify-content-center align-items-center p-sm-5">
+    <div class="container justify-content-center align-items-center p-sm-5">
+        <form method="" action="" autocomplete="on" id="myform" onsubmit="return validate();">
+            <div class="mb-3">
+                <p id="error_message"></p>
+            </div>
             <div class="mb-3">
                 <label for="jackSparrow johnDeere" class="form-label">Full Name</label>
                 <span class="text-danger">*</span>
                 <div class="">
                     <div class="row">
                         <div class="col-sm-6">
-                            <input type="name" class="form-control" id="" aria-describedby="jackSparrow" placeholder="First">
+                            <input type="name" class="form-control" id="firstName" aria-describedby="jackSparrow" placeholder="First" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
                             <div id="jackSparrow" class="form-text">We'll never share thy first name with anyone else.
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <input type="name" class="form-control" id="" aria-describedby="johnDeere" placeholder="Last">
+                            <input type="name" class="form-control" id="secondName" aria-describedby="johnDeere" placeholder="Last" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
                             <div id="johnDeere" class="form-text">We'll never share thy last name with anyone else.
                             </div>
                         </div>
@@ -73,7 +76,7 @@
             <div class="mb-3">
                 <label for="exampleDataList" class="form-label">Subject</label>
                 <span class="text-danger">*</span>
-                <input class="form-control" list="datalistOptions" id="exampleDataList" aria-describedby="subjectHelp" placeholder="Subject">
+                <input class="form-control" list="datalistOptions" id="exampleDataList" aria-describedby="subjectHelp" placeholder="Subject" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
                 <datalist id="datalistOptions">
                     <option value="Advertise">
                     <option value="General">
@@ -89,22 +92,31 @@
                 <div class="">
                     <div class="row">
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="firstInputField" aria-describedby="taskHelp" placeholder="New Task">
+                            <input type="text" class="form-control" id="firstInputField" aria-describedby="taskHelp" placeholder="New Task" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
                             <div id="taskHelp" class="form-text">We'll never share your task with anyone else.</div>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="secondInputField" aria-describedby="myTask" placeholder="Confirm Task">
+                            <input type="text" class="form-control" id="secondInputField" aria-describedby="myTask" placeholder="Confirm Task" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
                             <div id="myTask" class="form-text">We'll never share your task with anyone else.</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="mb-3">
-                <button id="addToDo">+</button>
-            </div>
-            <div class="mb-3">
-                <div class="toDo" id="toDoContainer">
-
+                <div class="container-fluid">
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-sm-6 p-2" style="display: flex; justify-content: center; align-items:center;">
+                            <button id="addToDo" onclick="event.preventDefault();">Add Task</button>
+                        </div>
+                        <div class="col-sm-6 p-2">
+                            <div class="contain">
+                                <h1>To Do List</h1>
+                                <div class="to-dos" id="toDoContainer">
+                                    <p class="text-muted">e.g Coding</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="mb-3 form-check">
@@ -112,8 +124,8 @@
                 <label class="form-check-label" for="exampleCheck">Check me out</label>
             </div>
             <button type="submit" class="btn btn-outline-primary">Submit</button>
-        </div>
-    </form>
+        </form>
+    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
     <script src="static/js/toDoApp.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
