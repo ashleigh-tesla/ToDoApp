@@ -131,32 +131,69 @@ addToDoButton.addEventListener('click', function() {
             var paragraph = document.createElement('p')
             paragraph.classList.add('paragraph-styling')
 
-            // storing data
-            let firstInput = (firstInputField.value).toString()
-            firstInput = JSON.stringify(firstInput);
-            localStorage.setItem("testJSON", firstInput)
+            var new_data = ' ' + secondInputField.value
 
-            //Retrieving data
-            let first = localStorage.getItem("testJSON");
-            let myFirst = JSON.parse(first);
+            // if there is nothing saved at the start then save an empty array
+            if (localStorage.getItem('data') == null) {
+                {
+                    localStorage.setItem('data', '[]')
+                }
+                // get old data and slap it to the new data
+                var old_data = JSON.parse(localStorage.getItem('data'))
+                old_data.push(new_data)
 
-            // storing data
-            let secondInput = (secondInputField.value).toString()
-            secondInput = JSON.stringify(secondInput);
-            localStorage.setItem("taskList", secondInput)
+                // save the old + new data to local storage
+                localStorage.setItem('data', JSON.stringify(old_data))
+            }
 
-            //Retrieving data
-            let second = localStorage.getItem("taskList");
-            let mySecond = JSON.parse(second);
+            if (localStorage.getItem('data') != null) {
+                paragraph.innerText = JSON.parse(localStorage.getItem('data'))
+                toDoContainer.appendChild(paragraph)
+                firstInputField.value = ""
+                secondInputField.value = ''
 
-            paragraph.innerText = mySecond
-            toDoContainer.appendChild(paragraph)
-            firstInputField.value = ""
-            secondInputField.value = ''
+                var list, i, switching, listItems, shouldSwitch
+                list = JSON.parse(localStorage.getItem('data'))
 
-            let text = "Task Added Successfully!"
-            console.log(text)
-            alert(text);
+                switching = true
+
+                while (switching) {
+                    switching = false
+                    listItems = list.getElementsByTagName("p")
+
+                    for (i = 0; i < (listItems.length - 1); i++) {
+                        shouldSwitch = false
+                        if (listItems[i].innerHTML.toLowerCase() > listItems[i + 1].innerHTML.toLowerCase()) {
+                            shouldSwitch = true
+                            break
+                        }
+                    }
+                    listItems[i].parentNode.insertBefore(listItems[i + 1], listItems[i])
+                    switching = true
+                }
+
+                let text = "Task Added Successfully!"
+                console.log(text)
+                alert(text);
+            }
+
+            // // storing data
+            // let firstInput = (firstInputField.value).toString()
+            // firstInput = JSON.stringify(firstInput);
+            // localStorage.setItem("testJSON", firstInput)
+
+            // //Retrieving data
+            // let first = localStorage.getItem("testJSON");
+            // let myFirst = JSON.parse(first);
+
+            // // storing data
+            // let secondInput = (secondInputField.value).toString()
+            // secondInput = JSON.stringify(secondInput);
+            // localStorage.setItem("taskList", secondInput)
+
+            // //Retrieving data
+            // let second = localStorage.getItem("taskList");
+            // let mySecond = JSON.parse(second);
         }
         paragraph.addEventListener('click', function() {
             paragraph.style.textDecoration = "line-through"
