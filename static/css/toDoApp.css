@@ -11,17 +11,18 @@ html {
 
 .contain {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center
 }
 
-#addToDo {
+#saveToDo,
+#viewToDo {
     border-style: dashed;
     border: 1px solid #000;
     background: coral;
-    border-radius: 50%;
+    display: flex;
+    flex-direction: row;
     vertical-align: middle;
-    font-size: 30px
 }
 
 .to-dos {
