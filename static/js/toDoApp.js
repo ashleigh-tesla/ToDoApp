@@ -185,10 +185,11 @@ saveToDoButton.addEventListener('click', function() {
             var paragraph = document.createElement('p')
             paragraph.classList.add('paragraph-styling')
 
-            document.querySelector('#toDoContainer').innerHTML = JSON.parse(localStorage.getItem('data'))
+            paragraph.innerText = JSON.parse(localStorage.getItem('data')).slice(-1)[0]
             toDoContainer.appendChild(paragraph)
-            firstData = ""
-            secondData = ''
+
+            firstInputField.value = ''
+            secondInputField.value = null
 
             let text = "Task Added Successfully!"
             console.log(text)
@@ -204,8 +205,8 @@ saveToDoButton.addEventListener('click', function() {
         })
     }
     // get old data and slap it to the new data
-    var oldData = JSON.parse(localStorage.getItem('data'))
-    oldData.push(secondData)
+    let oldData = JSON.parse(localStorage.getItem('data'))
+    oldData.push(secondInputField.value)
 
     // save the old + new data to local storage
     localStorage.setItem('data', JSON.stringify(oldData))
