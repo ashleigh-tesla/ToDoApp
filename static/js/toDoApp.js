@@ -120,11 +120,66 @@ function validateUser(event) {
     alert("Form Submitted Successfully!");
 }
 
+
+let saveToDoButton = document.querySelector('#saveToDo')
+let viewToDoButton = document.querySelector('#viewToDo')
 let addToDoButton = document.querySelector('#addToDo')
 let toDoContainer = document.querySelector('#toDoContainer')
 let firstInputField = document.querySelector('#firstInputField')
 let secondInputField = document.querySelector('#secondInputField')
 
+
+saveToDoButton.addEventListener('click', function() {
+
+    // get data from input box
+    let firstData = firstInputField.value
+    let secondData = secondInputField.value
+
+    // storing data
+    firstData = firstData.toString()
+    firstData = JSON.stringify(firstData)
+    secondData = firstData.toString()
+    secondData = JSON.stringify(secondData)
+    localStorage.setItem("firstJSON", firstData)
+    localStorage.setItem("secondJSON", firstData)
+
+    // retrieving data
+    let firstTask = localStorage.getItem("firstJSON");
+    let secondTask = localStorage.getItem("secondJSON");
+
+    // converting from JSON to non-JSON 
+    let first = JSON.parse(firstTask)
+    let second = JSON.parse(secondTask)
+
+    // if there is nothing saved at the start then save an empty array
+    if (localStorage.getItem('data') == null && first == null && second == null) {
+        localStorage.setItem('data', '[]')
+    }
+    // get old data and slap it to the new data
+    var old_data = JSON.parse(localStorage.getItem('data'))
+    old_data.push(secondData)
+
+    // save the old + new data to local storage
+    localStorage.setItem('data', JSON.stringify(old_data))
+})
+
+viewToDoButton.addEventListener('click', function() {
+
+    // get data from input box
+    var firstData = firstInputField.value
+    var secondData = secondInputField.value
+
+    // if there is indeed data then continue
+    if (localStorage.getItem('data') != null && firstData == secondData && firstData != '' && secondData != '') {
+        document.querySelector('#toDoContainer').innerHTML = JSON.parse(localStorage.getItem('data'))
+        toDoContainer.appendChild(paragraph)
+        firstInputField.value = ""
+        secondInputField.value = ''
+    }
+    let text = "Task Added Successfully!"
+    console.log(text)
+    alert(text);
+})
 addToDoButton.addEventListener('click', function() {
     if (firstInputField.value == secondInputField.value && firstInputField.value != '' && secondInputField.value != '') {
         {
