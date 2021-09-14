@@ -104,12 +104,17 @@
             </div>
             <div class="mb-3">
                 <div class="container-fluid">
-                    <div class="row justify-content-between align-items-center">
-                        <div class="col-sm-6 p-2" style="display: flex; justify-content: center; align-items:center;">
-                            <button id="addToDo" onclick="event.preventDefault();">Add Task</button>
+                    <div class="row align-items-center">
+                        <div class="col-sm-6 justify-content-between align-items-center contain">
+                            <div class="col-sm-3 p-2" style="display: flex; justify-content: center; align-items:center;">
+                                <button id="addToDo" onclick="event.preventDefault();">Add Task</button>
+                            </div>
+                            <div class="col-sm-3 p-2" style="display: flex; justify-content: center; align-items:center;">
+                                <button id="addToDo" onclick="event.preventDefault();">Display Task</button>
+                            </div>
                         </div>
                         <div class="col-sm-6 p-2">
-                            <div class="contain">
+                            <div>
                                 <h1>To Do List</h1>
                                 <div class="to-dos" id="toDoContainer">
                                     <div class="form-text text-muted">
