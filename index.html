@@ -16,7 +16,7 @@
 <body>
     <div class="container justify-content-center align-items-center p-sm-5">
         <form method="" action="" autocomplete="on" id="myform" onsubmit="validateUser(event);">
-            <div class="mb-3">
+            <div class="my-3">
                 <p id="error_message"></p>
             </div>
             <div class="mb-3">
@@ -105,19 +105,22 @@
             <div class="mb-3">
                 <div class="container-fluid">
                     <div class="row align-items-center">
-                        <div class="col-sm-6 justify-content-between align-items-center contain">
-                            <div class="col-sm-3" style="display: flex; justify-content: center; align-items:center;">
-                                <button class="btn btn-default btn-outline-success" id="saveToDo" onclick="event.preventDefault();">Save Task</button>
+                        <div class="col-sm-6 p-2 justify-content-between align-items-center contain">
+                            <div class="col-sm-2" style="display: flex; justify-content: center; align-items:center;">
+                                <button class="btn btn-default btn-outline-primary" id="saveToDo" onclick="event.preventDefault();">Save Task</button>
                             </div>
-                            <div class="col-sm-3" style="display: flex; justify-content: center; align-items:center;">
-                                <button class="btn btn-default btn-outline-info" id="viewToDo" onclick="event.preventDefault();">Display Task</button>
+                            <div class="col-sm-2" style="display: flex; justify-content: center; align-items:center;">
+                                <button class="btn btn-default btn-outline-secondary" id="viewToDo" onclick="event.preventDefault();">View Task</button>
+                            </div>
+                            <div class="col-sm-2" style="display: flex; justify-content: center; align-items:center;">
+                                <button class="btn btn-default btn-outline-info" id="sortToDo" onclick="event.preventDefault();">Sort Task</button>
                             </div>
                         </div>
                         <div class="col-sm-6 p-2">
                             <div>
                                 <h1>To Do List</h1>
                                 <div class="to-dos" id="toDoContainer">
-                                    <div class="form-text text-muted" class="clearfix">
+                                    <div class="form-text text-muted clearfix">
                                         <p><small>e.g Coding</small></p>
                                         <p><small>click to cancel task</small></p>
                                         <p><small>double click to delete task</small></p>
@@ -132,7 +135,9 @@
                 <input type="checkbox" class="form-check-input" id="exampleCheck">
                 <label class="form-check-label" for="exampleCheck">Check me out</label>
             </div>
-            <button type="submit" class="btn btn-outline-primary">Submit</button>
+            <div class="mb-3">
+                <button type="submit" class="submitBtn">Submit</button>
+            </div>
         </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>

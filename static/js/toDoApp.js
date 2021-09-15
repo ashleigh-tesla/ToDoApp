@@ -120,94 +120,90 @@ function validateUser(event) {
     alert("Form Submitted Successfully!");
 }
 
-
 let saveToDoButton = document.querySelector('#saveToDo')
 let viewToDoButton = document.querySelector('#viewToDo')
+let sortToDoButton = document.querySelector('#sortToDo')
 let toDoContainer = document.querySelector('#toDoContainer')
 let firstInputField = document.querySelector('#firstInputField')
 let secondInputField = document.querySelector('#secondInputField')
 
 
 saveToDoButton.addEventListener('click', function() {
-
     // get data from input box
-    let firstData = firstInputField.value
-    let secondData = secondInputField.value
-
-    // storing data
-    firstData = firstData.toString()
-    firstData = JSON.stringify(firstData)
-
-    secondData = secondData.toString()
-    secondData = JSON.stringify(secondData)
-
-    localStorage.setItem("firstJSON", firstData)
-    localStorage.setItem("secondJSON", secondData)
-
-    // retrieving data
-    let firstTask = localStorage.getItem("firstJSON");
-    let secondTask = localStorage.getItem("secondJSON");
-
-    // converting from JSON to non-JSON 
-    let first = JSON.parse(firstTask)
-    let second = JSON.parse(secondTask)
+    var first = firstInputField.value
+    var new_data = secondInputField.value
 
     // if there is nothing saved at the start then save an empty array
-    if (first == null && second == null) {
+    if (localStorage.getItem('data') == null) {
         localStorage.setItem('data', '[]')
-    } else if (first == '' && second == '') {
+    } else if (first == '' && new_data == '') {
         localStorage.setItem('data', '[]')
         let text = "Please Fill In Thy Today's Task"
         console.log(text)
         alert(text);
-    } else if (first == '' && second != '') {
+    } else if (first == '' && new_data != '') {
         localStorage.setItem('data', '[]')
         let text = "Please Input New Task"
         console.log(text)
         alert(text);
-    } else if (first != '' && second == '') {
+    } else if (first != '' && new_data == '') {
         localStorage.setItem('data', '[]')
         let text = "Please Confirm New Task"
         console.log(text)
         alert(text);
-    } else if (first != second) {
+    } else if (first != new_data) {
         localStorage.setItem('data', '[]')
         let text = "Tasks Did Not Match"
         console.log(text)
         alert("Tasks Did Not Match");
-    } else if (first == second && first != '' && second != '') {
+    } else if (first == new_data && first != '' && new_data != '') {
         alert('Task Added')
 
-        viewToDoButton.addEventListener('click', function() {
+        // get old data and slap it to the new data
+        var old_data = JSON.parse(localStorage.getItem('data'))
+        old_data.push(new_data)
 
-            // if there is indeed data then continue
+        // clear inputs
+        firstInputField.value = ""
+        secondInputField.value = null
 
-            var paragraph = document.createElement('p')
-            paragraph.classList.add('paragraph-styling')
+        // save the old + new data to local storage
+        localStorage.setItem('data', JSON.stringify(old_data))
+        let myData = JSON.parse(localStorage.getItem('data'))
+        console.log(myData)
+    }
+})
 
-            paragraph.innerText = JSON.parse(localStorage.getItem('data')).slice(-1)[0]
-            toDoContainer.appendChild(paragraph)
+viewToDoButton.addEventListener('click', function myFunction() {
 
-            firstInputField.value = ''
-            secondInputField.value = null
+    // if there is indeed data then continue
+    if (localStorage.getItem('data') != null) {
+        let paragraph = document.createElement('p')
+        paragraph.classList.add('paragraph-styling')
+        paragraph.innerText = JSON.parse(localStorage.getItem('data')).splice(-1)[0]
+        toDoContainer.appendChild(paragraph)
 
-            let text = "Task Added Successfully!"
-            console.log(text)
-            alert(text);
-
-            paragraph.addEventListener('click', function() {
-                paragraph.style.textDecoration = "line-through"
-            })
-            paragraph.addEventListener('dblclick', function() {
-                toDoContainer.removeChild(paragraph)
-            })
-
+        paragraph.addEventListener('click', function() {
+            paragraph.style.textDecoration = "line-through"
+        })
+        paragraph.addEventListener('dblclick', function() {
+            toDoContainer.removeChild(paragraph)
         })
     }
-    // get old data and slap it to the new data
-    let oldData = JSON.parse(localStorage.getItem('data'))
-    oldData.push(secondInputField.value)
+})
 
-    // save the old + new data to local storage
-    localStorage.setItem('data', JSON.stringify(oldData))
+sortToDoButton.addEventListener('click', function() {
+    let myData = JSON.parse(localStorage.getItem('data'))
+    sortedData = myData.sort(function(a, b) {
+        return a.localeCompare(b); //using String.prototype.localCompare()
+    });
+
+    let paragraph = document.createElement('p')
+    paragraph.classList.add('paragraph-styling')
+    paragraph.innerText = [myData]
+    toDoContainer.appendChild(paragraph)
+
+    console.log(myData)
+    console.log(sortedData)
+
 })

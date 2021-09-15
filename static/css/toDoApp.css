@@ -15,14 +15,21 @@ html {
     align-items: center
 }
 
-#saveToDo,
-#viewToDo {
+.submitBtn {
+    width: 200px;
+    background: #fff;
+    padding: 15px;
+    border: solid 1px dodgerblue;
     border-style: dashed;
-    border: 1px solid #000;
-    background: coral;
-    display: flex;
-    flex-direction: row;
-    vertical-align: middle;
+    border-radius: 33px;
+    color: dodgerblue;
+    cursor: pointer;
+    transition: all .38s ease-in-out;
+}
+
+.submitBtn:hover {
+    background: dodgerblue;
+    color: #fff;
 }
 
 .to-dos {
