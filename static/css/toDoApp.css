@@ -10,17 +10,26 @@ html {
 }
 
 .contain {
-    justify-content: center;
+    display: flex;
+    justify-content: space-evenly;
     align-items: center
 }
 
-#addToDo {
+.submitBtn {
+    width: 200px;
+    background: #fff;
+    padding: 15px;
+    border: solid 1px dodgerblue;
     border-style: dashed;
-    border: 1px solid #000;
-    background: coral;
-    border-radius: 50%;
-    vertical-align: middle;
-    font-size: 30px
+    border-radius: 33px;
+    color: dodgerblue;
+    cursor: pointer;
+    transition: all .38s ease-in-out;
+}
+
+.submitBtn:hover {
+    background: dodgerblue;
+    color: #fff;
 }
 
 .to-dos {
