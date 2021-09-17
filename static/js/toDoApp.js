@@ -124,6 +124,7 @@ let saveToDoButton = document.querySelector('#saveToDo')
 let viewToDoButton = document.querySelector('#viewToDo')
 let sortToDoButton = document.querySelector('#sortToDo')
 let toDoContainer = document.querySelector('#toDoContainer')
+let toDoOrderedList = document.querySelector('#toDoOrderedList')
 let firstInputField = document.querySelector('#firstInputField')
 let secondInputField = document.querySelector('#secondInputField')
 
@@ -175,6 +176,7 @@ saveToDoButton.addEventListener('click', function() {
 })
 
 viewToDoButton.addEventListener('click', function myFunction() {
+    toDoContainer.style.display = 'flex'
 
     // if there is indeed data then continue
     if (localStorage.getItem('data') != null) {
@@ -185,23 +187,29 @@ viewToDoButton.addEventListener('click', function myFunction() {
 
         paragraph.addEventListener('click', function() {
             paragraph.style.textDecoration = "line-through"
+            localStorage.remove();
         })
         paragraph.addEventListener('dblclick', function() {
             toDoContainer.removeChild(paragraph)
+            localStorage.clear()
         })
     }
 })
 
 sortToDoButton.addEventListener('click', function() {
+    toDoContainer.style.display = 'flex'
+    toDoOrderedList.style.display = 'block'
     let myData = JSON.parse(localStorage.getItem('data'))
     sortedData = myData.sort(function(a, b) {
         return a.localeCompare(b); //using String.prototype.localCompare()
     });
 
-    let paragraph = document.createElement('p')
-    paragraph.classList.add('paragraph-styling')
-    paragraph.innerText = [myData]
-    toDoContainer.appendChild(paragraph)
+    const myList = new Vue({
+        el: '#toDoSortedContainer',
+        data: {
+            items: sortedData
+        }
+    })
 
     console.log(myData)
     console.log(sortedData)

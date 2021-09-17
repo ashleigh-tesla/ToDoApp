@@ -125,6 +125,13 @@
                                         <p><small>click to cancel task</small></p>
                                         <p><small>double click to delete task</small></p>
                                     </div>
+                                    <div id="toDoSortedContainer">
+                                        <ol id='toDoOrderedList'>
+
+                                            <li v-for='item in items'>{{item}}</li>
+
+                                        </ol>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -140,6 +147,8 @@
             </div>
         </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
     <script src="static/js/toDoApp.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
