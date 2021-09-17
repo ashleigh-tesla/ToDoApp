@@ -54,6 +54,10 @@ html {
     transition: all .5s ease
 }
 
+#toDoContainer {
+    display: none;
+}
+
 p {
     display: flex;
     flex-direction: column;
@@ -76,4 +80,8 @@ p {
     margin: 0;
     cursor: pointer;
     font-size: 20px
+}
+
+#toDoOrderedList {
+    display: none;
 }
