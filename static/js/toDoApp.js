@@ -68,25 +68,32 @@ class Operator extends User {
             console.log(text)
             alert(text)
             throw new Error('Tasks Did Not Match')
-        } else if (value == '' && this.confirmedTask == '') {
+        }
+        if (value == '' && this.confirmedTask == '') {
             // localStorage.setItem('data', '[]')
             let text = "Please Fill In Thy Today's Task"
             error_message.innerText = text;
             console.log(text)
             alert(text);
-        } else if (value == '' && this.confirmedTask != '') {
+            throw new Error("Please Fill In Thy Today's Task")
+        }
+        if (value == '' && this.confirmedTask != '') {
             // localStorage.setItem('data', '[]')
             let text = "Please Input New Task"
             error_message.innerText = text;
             console.log(text)
             alert(text);
-        } else if (value != '' && this.confirmedTask == '') {
+            throw new Error("Please Input New Task")
+        }
+        if (value != '' && this.confirmedTask == '') {
             // localStorage.setItem('data', '[]')
             let text = "Please Confirm New Task"
             error_message.innerText = text;
             console.log(text)
             alert(text);
-        } else if (value == this.confirmedTask && value != '' && this.confirmedTask != '') {
+            throw new Error("Please Confirm New Task")
+        }
+        if (value == this.confirmedTask && value != '' && this.confirmedTask != '') {
             alert('Task Added')
 
             // get old data and slap it to the new data
@@ -115,31 +122,39 @@ class Operator extends User {
             console.log(text)
             alert("Tasks Did Not Tally");
             throw new Error('Tasks Did Not Tally')
-        } else if (value != this.newTask) {
+        }
+        if (value != this.newTask) {
             let text = "Tasks Did Not Tally"
             error_message.innerText = text;
             console.log(text)
             alert(text)
             throw new Error('Tasks Did Not Match')
-        } else if (value == '' && this.newTask == '') {
+        }
+        if (value == '' && this.newTask == '') {
             // localStorage.setItem('data', '[]')
             let text = "Please Fill In Thy Today's Task"
             error_message.innerText = text;
             console.log(text)
             alert(text);
-        } else if (value == '' && this.newTask != '') {
+            throw new Error(text)
+        }
+        if (value == '' && this.newTask != '') {
             // localStorage.setItem('data', '[]')
             let text = "Please Input New Task"
             error_message.innerText = text;
             console.log(text)
             alert(text);
-        } else if (value != '' && this.newTask == '') {
+            throw new Error(text)
+        }
+        if (value != '' && this.newTask == '') {
             // localStorage.setItem('data', '[]')
             let text = "Please Confirm New Task"
             error_message.innerText = text;
             console.log(text)
             alert(text);
-        } else if (value == this.newTask && value != '' && this.newTask != '') {
+            throw new Error(text)
+        }
+        if (value == this.newTask && value != '' && this.newTask != '') {
             alert('Task Added')
 
             // get old data and slap it to the new data
