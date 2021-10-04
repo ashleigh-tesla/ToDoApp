@@ -65,6 +65,8 @@ class Operator extends User {
         let firstInputField = document.querySelector('#firstInputField')
         let secondInputField = document.querySelector('#secondInputField')
 
+        // let error_message = document.querySelector("#error_message")
+
         // get data from input box
         let first = firstInputField.value
         let new_data = secondInputField.value
@@ -124,20 +126,27 @@ class Operator extends User {
         // if there is indeed data then continue
         if (localStorage.getItem('data') != null) {
             let paragraph = document.createElement('p')
+
             paragraph.classList.add('paragraph-styling')
             paragraph.innerText = JSON.parse(localStorage.getItem('data')).splice(-1)[0]
             toDoContainer.appendChild(paragraph)
-            let text = "Added New Task"
-            error_message.innerText = text;
+
             paragraph.addEventListener('click', function() {
                 paragraph.style.textDecoration = "line-through"
-                localStorage.remove();
+
+                let u = document.querySelector("#error_message")
+                u.style.padding = "20px"
+                u.style.display = "block"
                 let text = "Task Cancelled"
                 error_message.innerText = text;
             })
             paragraph.addEventListener('dblclick', function() {
                 toDoContainer.removeChild(paragraph)
                 localStorage.clear()
+
+                let u = document.querySelector("#error_message")
+                u.style.padding = "20px"
+                u.style.display = "block"
                 let text = "Task Cleared"
                 error_message.innerText = text;
             })
@@ -149,10 +158,11 @@ class Operator extends User {
 
         toDoContainer.style.display = 'flex'
         toDoOrderedList.style.display = 'block'
+
         let myData = JSON.parse(localStorage.getItem('data'))
         sortedData = myData.sort(function(a, b) {
             return a.localeCompare(b); //using String.prototype.localCompare()
-        });
+        })
 
         const myList = new Vue({
             el: '#toDoSortedContainer',
@@ -313,10 +323,6 @@ function validateUser(event) {
     function saveTask() {
 
         let saveToDoButton = document.querySelector('#saveToDo')
-        let u = document.querySelector("#error_message");
-
-        u.style.padding = "20px";
-        u.style.display = "block";
 
         saveToDoButton.addEventListener('click', myUser.saveTask())
 
@@ -325,11 +331,6 @@ function validateUser(event) {
     }
 
     function viewTask() {
-        let u = document.querySelector("#error_message");
-
-        u.style.padding = "20px";
-        u.style.display = "block";
-
         // let viewToDoButton = document.querySelector('#viewToDo')
 
         // viewToDoButton.addEventListener('click', myUser.saveTask())
@@ -339,10 +340,6 @@ function validateUser(event) {
     }
 
     function sortTask() {
-        let u = document.querySelector("#error_message");
-
-        u.style.padding = "20px";
-        u.style.display = "block";
 
         let sortToDoButton = document.querySelector('#sortToDo')
 
