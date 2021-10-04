@@ -61,6 +61,110 @@ class Operator extends User {
         confirmedTask = ''
     }
 
+    saveTask() {
+        let firstInputField = document.querySelector('#firstInputField')
+        let secondInputField = document.querySelector('#secondInputField')
+
+        // get data from input box
+        let first = firstInputField.value
+        let new_data = secondInputField.value
+
+        // if there is nothing saved at the start then save an empty array
+        if (localStorage.getItem('data') == null) {
+            localStorage.setItem('data', '[]')
+        } else if (first == '' && new_data == '') {
+            localStorage.setItem('data', '[]')
+            let text = "Please Fill In Thy Today's Task"
+            error_message.innerText = text;
+            console.log(text)
+            alert(text);
+        } else if (first == '' && new_data != '') {
+            localStorage.setItem('data', '[]')
+            let text = "Please Input New Task"
+            error_message.innerText = text;
+            console.log(text)
+            alert(text);
+        } else if (first != '' && new_data == '') {
+            localStorage.setItem('data', '[]')
+            let text = "Please Confirm New Task"
+            error_message.innerText = text;
+            console.log(text)
+            alert(text);
+        } else if (first != new_data) {
+            localStorage.setItem('data', '[]')
+            let text = "Tasks Did Not Match"
+            error_message.innerText = text;
+            console.log(text)
+            alert("Tasks Did Not Match");
+        } else if (first == new_data && first != '' && new_data != '') {
+            let text = 'Task Added'
+            error_message.innerText = text;
+            console.log(text)
+            alert(text)
+
+            // get old data and slap it to the new data
+            var old_data = JSON.parse(localStorage.getItem('data'))
+            old_data.push(new_data)
+
+            // clear inputs
+            firstInputField.value = ""
+            secondInputField.value = null
+
+            // save the old + new data to local storage
+            localStorage.setItem('data', JSON.stringify(old_data))
+            let myData = JSON.parse(localStorage.getItem('data'))
+            console.log(myData)
+        }
+    }
+    viewTask() {
+        let toDoContainer = document.querySelector('#toDoContainer')
+
+        toDoContainer.style.display = 'flex'
+
+        // if there is indeed data then continue
+        if (localStorage.getItem('data') != null) {
+            let paragraph = document.createElement('p')
+            paragraph.classList.add('paragraph-styling')
+            paragraph.innerText = JSON.parse(localStorage.getItem('data')).splice(-1)[0]
+            toDoContainer.appendChild(paragraph)
+            let text = "Added New Task"
+            error_message.innerText = text;
+            paragraph.addEventListener('click', function() {
+                paragraph.style.textDecoration = "line-through"
+                localStorage.remove();
+                let text = "Task Cancelled"
+                error_message.innerText = text;
+            })
+            paragraph.addEventListener('dblclick', function() {
+                toDoContainer.removeChild(paragraph)
+                localStorage.clear()
+                let text = "Task Cleared"
+                error_message.innerText = text;
+            })
+        }
+    }
+    sortTask() {
+        let toDoContainer = document.querySelector('#toDoContainer')
+        let toDoOrderedList = document.querySelector('#toDoOrderedList')
+
+        toDoContainer.style.display = 'flex'
+        toDoOrderedList.style.display = 'block'
+        let myData = JSON.parse(localStorage.getItem('data'))
+        sortedData = myData.sort(function(a, b) {
+            return a.localeCompare(b); //using String.prototype.localCompare()
+        });
+
+        const myList = new Vue({
+            el: '#toDoSortedContainer',
+            data: {
+                items: sortedData
+            }
+        })
+
+        console.log(myData)
+        console.log(sortedData)
+    }
+
     set newTask(value) {
         if (value != this.confirmedTask) {
             let text = "Tasks Did Not Tally"
@@ -187,7 +291,6 @@ function validateUser(event) {
     let y = document.querySelector("#firstInputField").value;
     let z = document.querySelector("#secondInputField").value;
 
-
     u.style.padding = "20px";
     u.style.display = "block";
 
@@ -205,100 +308,48 @@ function validateUser(event) {
 }
 
 {
-    let saveToDoButton = document.querySelector('#saveToDo')
-    let viewToDoButton = document.querySelector('#viewToDo')
-    let sortToDoButton = document.querySelector('#sortToDo')
-    let toDoContainer = document.querySelector('#toDoContainer')
-    let toDoOrderedList = document.querySelector('#toDoOrderedList')
-    let firstInputField = document.querySelector('#firstInputField')
-    let secondInputField = document.querySelector('#secondInputField')
+    const myUser = new Operator()
 
+    function saveTask() {
 
-    saveToDoButton.addEventListener('click', function() {
-        // get data from input box
-        var first = firstInputField.value
-        var new_data = secondInputField.value
+        let saveToDoButton = document.querySelector('#saveToDo')
+        let u = document.querySelector("#error_message");
 
-        // if there is nothing saved at the start then save an empty array
-        if (localStorage.getItem('data') == null) {
-            localStorage.setItem('data', '[]')
-        } else if (first == '' && new_data == '') {
-            localStorage.setItem('data', '[]')
-            let text = "Please Fill In Thy Today's Task"
-            console.log(text)
-            alert(text);
-        } else if (first == '' && new_data != '') {
-            localStorage.setItem('data', '[]')
-            let text = "Please Input New Task"
-            console.log(text)
-            alert(text);
-        } else if (first != '' && new_data == '') {
-            localStorage.setItem('data', '[]')
-            let text = "Please Confirm New Task"
-            console.log(text)
-            alert(text);
-        } else if (first != new_data) {
-            localStorage.setItem('data', '[]')
-            let text = "Tasks Did Not Match"
-            console.log(text)
-            alert("Tasks Did Not Match");
-        } else if (first == new_data && first != '' && new_data != '') {
-            alert('Task Added')
+        u.style.padding = "20px";
+        u.style.display = "block";
 
-            // get old data and slap it to the new data
-            var old_data = JSON.parse(localStorage.getItem('data'))
-            old_data.push(new_data)
+        saveToDoButton.addEventListener('click', myUser.saveTask())
 
-            // clear inputs
-            firstInputField.value = ""
-            secondInputField.value = null
+        // myUser.saveTask()
 
-            // save the old + new data to local storage
-            localStorage.setItem('data', JSON.stringify(old_data))
-            let myData = JSON.parse(localStorage.getItem('data'))
-            console.log(myData)
-        }
-    })
+    }
 
-    viewToDoButton.addEventListener('click', function myFunction() {
-        toDoContainer.style.display = 'flex'
+    function viewTask() {
+        let u = document.querySelector("#error_message");
 
-        // if there is indeed data then continue
-        if (localStorage.getItem('data') != null) {
-            let paragraph = document.createElement('p')
-            paragraph.classList.add('paragraph-styling')
-            paragraph.innerText = JSON.parse(localStorage.getItem('data')).splice(-1)[0]
-            toDoContainer.appendChild(paragraph)
+        u.style.padding = "20px";
+        u.style.display = "block";
 
-            paragraph.addEventListener('click', function() {
-                paragraph.style.textDecoration = "line-through"
-                localStorage.remove();
-            })
-            paragraph.addEventListener('dblclick', function() {
-                toDoContainer.removeChild(paragraph)
-                localStorage.clear()
-            })
-        }
-    })
+        // let viewToDoButton = document.querySelector('#viewToDo')
 
-    sortToDoButton.addEventListener('click', function() {
-        toDoContainer.style.display = 'flex'
-        toDoOrderedList.style.display = 'block'
-        let myData = JSON.parse(localStorage.getItem('data'))
-        sortedData = myData.sort(function(a, b) {
-            return a.localeCompare(b); //using String.prototype.localCompare()
-        });
+        // viewToDoButton.addEventListener('click', myUser.saveTask())
 
-        const myList = new Vue({
-            el: '#toDoSortedContainer',
-            data: {
-                items: sortedData
-            }
-        })
+        myUser.viewTask()
 
-        console.log(myData)
-        console.log(sortedData)
+    }
 
-    })
+    function sortTask() {
+        let u = document.querySelector("#error_message");
+
+        u.style.padding = "20px";
+        u.style.display = "block";
+
+        let sortToDoButton = document.querySelector('#sortToDo')
+
+        sortToDoButton.addEventListener('click', myUser.sortTask())
+
+        // myUser.sortTask()
+
+    }
 }
 ``
