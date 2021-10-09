@@ -11,7 +11,7 @@ html {
 
 .contain {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center
 }
 
@@ -52,10 +52,6 @@ html {
     text-align: center;
     font-size: 25px;
     transition: all .5s ease
-}
-
-#toDoContainer {
-    display: none;
 }
 
 p {
