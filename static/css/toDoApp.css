@@ -90,20 +90,27 @@ p {
     overflow: hidden;
 }
 
-#toDoContainer li span {
-    position: absolute;
-    right: -45px;
-    color: rgb(255, 255, 255);
+.spanOne,
+.spanTwo {
     width: 45px;
     text-align: center;
+    border: solid 1px #8e49e8;
+    border-radius: 3px;
     background: #e74c3c;
-    border-radius: 0 3px 3px 0;
+    color: rgb(255, 255, 255);
+}
+
+#toDoContainer li .mySpan {
+    flex-direction: row;
+    justify-content: space-evenly;
+    position: absolute;
+    right: -110px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-#toDoContainer li:hover span {
-    right: 0px;
+#toDoContainer li:hover .mySpan {
+    right: 0;
 }
 
 .to-dos .xanthophloea {
