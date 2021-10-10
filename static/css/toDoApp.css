@@ -50,7 +50,7 @@ html {
     transition: all .5s ease
 }
 
-#contain button {
+#contain #addToDo {
     border: none;
     outline: none;
     background: #8e49e8;
@@ -62,10 +62,28 @@ html {
     pointer-events: none;
 }
 
-#contain button.active {
+#contain #addToDo.active {
     opacity: 1;
     pointer-events: auto;
 }
+
+
+/* #contain #editToDo {
+    border: none;
+    outline: none;
+    background: #8e49e8;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 3px;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#contain #editToDo.active {
+    opacity: 1;
+    pointer-events: auto;
+} */
 
 p {
     display: flex;
