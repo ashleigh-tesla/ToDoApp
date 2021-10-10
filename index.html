@@ -63,14 +63,14 @@
                 <label for="firstInputField secondInputField" class="form-label">Task</label>
                 <span class="text-danger">*</span>
                 <div class="">
-                    <div class="row">
+                    <div class="row align-items-center justify-content-evenly">
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="firstInputField" aria-describedby="taskHelp" placeholder="New Task" onfocus="this.newTask=''" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
-                            <input type="hidden" class="form-control" id="secondInputField" aria-describedby="myTask" placeholder="Edit Task" onfocus="this.confirmedTask=''" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
+                            <input type="text" class="form-control" id="firstInputField" aria-describedby="taskHelp" placeholder="New Task" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
+                            <input type="hidden" class="form-control" id="secondInputField" aria-describedby="myTask" placeholder="Edit Task" style="border: 1px solid #000; outline: 0; font-size: 20px; vertical-align: middle">
                             <div id="taskHelp" class="form-text">We'll never share your task with anyone else.</div>
                         </div>
-                        <div class="col-sm-4 p-2 justify-content-center align-items-center contain">
-                            <div class="col-sm-2">
+                        <div class="col-sm-4 p-2 justify-content-center contain">
+                            <div class="col-sm-2" id="contain">
                                 <button class="btn btn-default btn-outline-info" id="addToDo">Add Task</button>
                                 <button class="btn btn-default btn-outline-info" id="editToDo" style="display: none;">Edit Task</button>
                             </div>
@@ -84,10 +84,13 @@
                         <div class="col p-2 justify-content-center">
 
                             <h1>To Do List</h1>
-                            <div class="to-dos" id="toDoContainer">
+                            <div class="to-dos">
                                 <div class="form-text text-muted clearfix">
                                     <p><small>e.g Coding</small></p>
                                 </div>
+                                <ul id="toDoContainer">
+                                    <!-- Data Comes From Local Storage -->
+                                </ul>
                                 <div class="xanthophloea">
                                     <span>You Have <span id="pendingNumber"></span> Pending Tasks</span>
                                     <button id="clearAll">Clear All</button>

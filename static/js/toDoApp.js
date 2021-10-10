@@ -350,3 +350,117 @@ function validateUser(event) {
     }
 }
 ``
+
+
+
+
+
+
+
+// getting all required elements
+const firstInputField = document.querySelector('#firstInputField')
+const secondInputField = document.querySelector('#secondInputField')
+const addTaskButton = document.querySelector('#addToDo')
+const editTaskButton = document.querySelector('#editToDo')
+const toDoList = document.querySelector('#toDoContainer')
+const deleteAllButton = document.querySelector('#clearAll')
+
+firstInputField.onkeyup = () => {
+    let userData = firstInputField.value; // getting user entered value
+    if (userData.trim() != 0) { // if user values aren't only spaces
+        addTaskButton.classList.add("active") // activate the add button
+    } else {
+        addTaskButton.classList.remove("active") // deactivate the add button
+    }
+}
+showTasks() // calling showTasks function
+
+// if user click on the add button
+addTaskButton.onclick = () => {
+    let userData = firstInputField.value; // getting user entered value
+    let getLocalStorage = localStorage.getItem("ToDoTask") // getting local storage
+    if (getLocalStorage == null) { // if local storage is empty
+        toDoArray = [] // creating an empty array
+    } else {
+        toDoArray = JSON.parse(getLocalStorage) // transforming json string into a js object
+    }
+    toDoArray.push(userData) // pushing or adding user data
+    localStorage.setItem("ToDoTask", JSON.stringify(toDoArray)) // transforming js object into a json string
+    showTasks() // calling showTasks function
+    addTaskButton.classList.remove("active") // deactivate the add button
+}
+
+// function to add task list inside ul
+function showTasks() {
+    let getLocalStorage = localStorage.getItem("ToDoTask") // getting local storage
+    if (getLocalStorage == null) { // if local storage is empty
+        toDoArray = [] // creating an empty array
+    } else {
+        toDoArray = JSON.parse(getLocalStorage) // transforming json string into a js object
+    }
+
+    const pendingNumber = document.querySelector("#pendingNumber")
+    pendingNumber.textContent = toDoArray.length // passing the length value in pendingNum
+    if (toDoArray.length > 0) { // if array length is greater than zero
+        deleteAllButton.classList.add("active"); // active the clear all button
+    } else {
+        deleteAllButton.classList.remove("active"); // unactive the clear all button
+    }
+    let newLiTag = ''
+    toDoArray.forEach((element, index) => {
+        newLiTag += `<li> ${element} <span onclick='editTask(${index})';>EDIT</span><span onclick='deleteTask(${index})';><i class="far fa-trash-alt">DEL</i></span></li>`
+    })
+    toDoList.innerHTML = newLiTag; // adding new li tag inside ul tag
+    firstInputField.value = '' // once task added leave the input field blank
+}
+
+// edit task function
+function editTask(index) {
+    secondInputField.value = index
+    let getLocalStorage = localStorage.getItem("ToDoTask")
+    todoArray = JSON.parse(getLocalStorage)
+    todoArray.sort((a, b) => {
+        if (a > b) return 1;
+        if (a < b) return -1;
+        return 0;
+    });
+    firstInputField.value = todoArray[index]
+    addTaskButton.style.display = "none"
+    editTaskButton.style.display = "block"
+}
+
+editTaskButton.addEventListener("click", () => {
+    let getLocalStorage = localStorage.getItem("ToDoTask")
+    todoArray = JSON.parse(getLocalStorage)
+    todoArray.sort((a, b) => {
+        if (a > b) return 1;
+        if (a < b) return -1;
+        return 0;
+    });
+    let id = secondInputField.value
+    todoArray[id] = firstInputField.value
+    addTaskButton.style.display = "block"
+    editTaskButton.style.display = "none"
+    firstInputField.value = ""
+    localStorage.setItem("todo", JSON.stringify(todoArray))
+    displayTodo()
+})
+
+// delete task function
+function deleteTask(index) {
+    let getLocalStorage = localStorage.getItem("ToDoTask") // getting local storage
+    toDoArray = JSON.parse(getLocalStorage) // transforming json string into a js object
+    toDoArray.splice(index, 1) // delete or remove the particular indexed li
+
+    // after remove the li again update the local storage
+    localStorage.setItem("ToDoTask", JSON.stringify(toDoArray)) // transforming js object into a json string
+    showTasks() // calling showTasks function
+}
+
+deleteAllButton.onclick = () => {
+    toDoArray = [] // empty the array
+
+    // after clear all tasks again update the local storage
+    localStorage.setItem("ToDoTask", JSON.stringify(toDoArray)) // transforming js object into a json string
+    showTasks() // calling showTasks function
+}
