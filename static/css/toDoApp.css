@@ -67,8 +67,7 @@ html {
     pointer-events: auto;
 }
 
-
-/* #contain #editToDo {
+#contain #editToDo {
     border: none;
     outline: none;
     background: #8e49e8;
@@ -83,7 +82,7 @@ html {
 #contain #editToDo.active {
     opacity: 1;
     pointer-events: auto;
-} */
+}
 
 p {
     display: flex;
