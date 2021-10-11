@@ -11,7 +11,7 @@ html {
 
 .contain {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center
 }
 
@@ -33,14 +33,10 @@ html {
 }
 
 .to-dos {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     border: 1px solid #000;
     border-style: dotted;
     background: coral;
-    color: #fff
+    padding: 25px;
 }
 
 #error_message {
@@ -54,8 +50,38 @@ html {
     transition: all .5s ease
 }
 
-#toDoContainer {
-    display: none;
+#contain #addToDo {
+    border: none;
+    outline: none;
+    background: #8e49e8;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 3px;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#contain #addToDo.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#contain #editToDo {
+    border: none;
+    outline: none;
+    background: #8e49e8;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 3px;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#contain #editToDo.active {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 p {
@@ -68,20 +94,66 @@ p {
     font-weight: 300;
 }
 
-.paragraph-styling {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: larger;
-    font-style: normal;
-    font-variant: 700;
-    font-weight: 700;
-    margin: 0;
-    cursor: pointer;
-    font-size: 20px
+#toDoContainer li {
+    list-style: none;
+    height: 45px;
+    line-height: 45px;
+    position: relative;
+    background: #f2f2f2;
+    border-radius: 3px;
+    margin-bottom: 8px;
+    padding: 0 15px;
+    cursor: default;
+    overflow: hidden;
 }
 
-#toDoOrderedList {
-    display: none;
+.spanOne,
+.spanTwo {
+    width: 45px;
+    text-align: center;
+    border: solid 1px #8e49e8;
+    border-radius: 3px;
+    background: #e74c3c;
+    color: rgb(255, 255, 255);
+}
+
+#toDoContainer li .mySpan {
+    flex-direction: row;
+    justify-content: space-evenly;
+    position: absolute;
+    right: -110px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#toDoContainer li:hover .mySpan {
+    right: 0;
+}
+
+.to-dos .xanthophloea {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    margin-top: 25px;
+    padding: 0 0 0 25px;
+    justify-content: space-between;
+}
+
+.xanthophloea button {
+    border: none;
+    outline: none;
+    background: #8e49e8;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 6px 10px;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.xanthophloea button.active {
+    opacity: 1;
+    pointer-events: auto;
 }

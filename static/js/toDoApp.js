@@ -1,217 +1,268 @@
 class User {
-    constructor(firstName, secondName, exampleDataList, newTask, confirmedTask) {
-        this._firstName = firstName;
-        this._secondName = secondName;
-        this._exampleDataList = exampleDataList;
-        this._newTask = newTask;
-        this._confirmedTask = confirmedTask;
+    constructor(firstName, secondName, exampleDataList) {
+        this._firstName = firstName
+        this._secondName = secondName
+        this._exampleDataList = exampleDataList
 
         firstName = null
         secondName = null
         exampleDataList = null
-        newTask = null
-        confirmedTask = null
     }
 
     set firstName(value) {
         if (value.length < 1) {
-            let text = "Please Enter Valid First Name";
-            error_message.innerText = text;
-            console.log(text)
-            throw new Error('Please Enter Valid First Name');
+            let text = "Please Enter Valid First Name"
+            error_message.innerText = text
+            throw new Error(text)
         }
-        this._firstName = value;
-        console.log(this._firstName = value)
+        this._firstName = value
+        console.log(value)
     }
     get firstName() {
-        return this._firstName;
+        return this._firstName
     }
     set secondName(value) {
         if (value.length <= 2) {
-            let text = "Please Enter Valid Last Name";
-            error_message.innerText = text;
-            console.log(text)
-            throw new Error('Please Enter Valid Last Name');
+            let text = "Please Enter Valid Last Name"
+            error_message.innerText = text
+            throw new Error(text)
         }
-        this._secondName = value;
-        console.log(this._secondName = value)
+        this._secondName = value
+        console.log(value)
     }
     get secondName() {
-        return this._secondName;
+        return this._secondName
     }
 
     set exampleDataList(value) {
         if (value == '') {
-            let text = "Please Enter Correct Subject";
-            error_message.innerText = text;
-            console.log(text)
-            throw new Error('Please Enter Correct Subject');
+            let text = "Please Enter Correct Subject"
+            error_message.innerText = text
+            throw new Error(text)
         }
-        this._exampleDataList = value;
-        console.log(this._exampleDataList = value)
+        this._exampleDataList = value
+        console.log(value)
     }
     get exampleDataList() {
-        return this._exampleDataList;
+        return this._exampleDataList
+    }
+}
+
+class Operator extends User {
+    constructor(firstName, secondName, exampleDataList, newTask) {
+        super(firstName, secondName, exampleDataList)
+        this._newTask = newTask
+        this._toDoArray = []
+
+        newTask = ""
+        toDoArray = []
     }
 
     set newTask(value) {
-        if (value != this.confirmedTask) {
-            let text = "Tasks Did Not Tally"
-            error_message.innerText = text;
-            console.log(text)
-            alert("Tasks Did Not Match");
-            throw new Error('Tasks Did Not Match')
-        } else {
-            let text = "Task Added"
-            error_message.innerText = text;
-            console.log(text)
-                // alert("Task Added Successfully");
-            this._newTask = value;
+        if (value != '') {
+            this._newTask = value
         }
     }
     get newTask() {
-        return this._newTask;
-    }
-
-    set confirmedTask(value) {
-        if (value != this.newTask) {
-            let text = "Tasks Did Not Match"
-            error_message.innerText = text;
-            console.log(text)
-            alert("Tasks Did Not Tally");
-            throw new Error('Tasks Did Not Tally')
-        } else {
-            let text = "Task Added"
-            error_message.innerText = text;
-            console.log(text)
-                // alert("Task Added Successfully");
-            this._confirmedTask = value;
-        }
-    }
-    get confirmedTask() {
-        return this._confirmedTask;
+        return this._newTask
     }
 }
 
 function validateUser(event) {
     event.preventDefault()
 
-    let u = document.querySelector("#error_message");
-    let v = document.querySelector("#firstName").value;
-    let w = document.querySelector("#secondName").value;
-    let x = document.querySelector("#exampleDataList").value;
-    let y = document.querySelector("#firstInputField").value;
-    let z = document.querySelector("#secondInputField").value;
+    let w = document.querySelector("#error_message")
+    let x = document.querySelector("#firstName").value
+    let y = document.querySelector("#secondName").value
+    let z = document.querySelector("#exampleDataList").value
 
+    w.style.padding = "20px"
+    w.style.display = "block"
 
-    u.style.padding = "20px";
-    u.style.display = "block";
+    const newUser = new Operator(x, y, z)
 
-    const newUser = new User(v, w, x, y, z);
-
-    newUser.firstName = v
-    newUser.secondName = w
-    newUser.exampleDataList = x
-    newUser.newTask = y
-    newUser.confirmedTask = z
+    newUser.firstName = x
+    newUser.secondName = y
+    newUser.exampleDataList = z
 
     document.writeln("<p>Form Submitted On:</p>")
     document.writeln(new Date())
-    alert("Form Submitted Successfully!");
+    alert("Form Submitted Successfully!")
+}
+``
+
+
+
+
+
+
+
+// getting all required elements
+const firstInputField = document.querySelector('#firstInputField')
+const secondInputField = document.querySelector('#secondInputField')
+const addTaskButton = document.querySelector('#addToDo')
+const editTaskButton = document.querySelector('#editToDo')
+const toDoList = document.querySelector('#toDoContainer')
+const deleteAllButton = document.querySelector('#clearAll')
+
+firstInputField.onkeyup = () => {
+    let userData = firstInputField.value // getting user entered value
+    if (userData.trim() != 0) { // if user values aren't only spaces
+        addTaskButton.classList.add("active") // activate the add button
+    } else {
+        addTaskButton.classList.remove("active") // deactivate the add button
+    }
 }
 
-let saveToDoButton = document.querySelector('#saveToDo')
-let viewToDoButton = document.querySelector('#viewToDo')
-let sortToDoButton = document.querySelector('#sortToDo')
-let toDoContainer = document.querySelector('#toDoContainer')
-let toDoOrderedList = document.querySelector('#toDoOrderedList')
-let firstInputField = document.querySelector('#firstInputField')
-let secondInputField = document.querySelector('#secondInputField')
+showTasks() // calling showTasks function
 
+// if user click on the add button
+addTaskButton.onclick = () => {
+    let userData = firstInputField.value // getting user entered value
+    let getLocalStorage = localStorage.getItem("ToDoTask") // getting local storage
+    if (getLocalStorage == null) { // if local storage is empty
+        toDoArray = [] // creating an empty array
+    } else {
+        toDoArray = JSON.parse(getLocalStorage) // transforming json string into a js object
 
-saveToDoButton.addEventListener('click', function() {
-    // get data from input box
-    var first = firstInputField.value
-    var new_data = secondInputField.value
-
-    // if there is nothing saved at the start then save an empty array
-    if (localStorage.getItem('data') == null) {
-        localStorage.setItem('data', '[]')
-    } else if (first == '' && new_data == '') {
-        localStorage.setItem('data', '[]')
-        let text = "Please Fill In Thy Today's Task"
-        console.log(text)
-        alert(text);
-    } else if (first == '' && new_data != '') {
-        localStorage.setItem('data', '[]')
-        let text = "Please Input New Task"
-        console.log(text)
-        alert(text);
-    } else if (first != '' && new_data == '') {
-        localStorage.setItem('data', '[]')
-        let text = "Please Confirm New Task"
-        console.log(text)
-        alert(text);
-    } else if (first != new_data) {
-        localStorage.setItem('data', '[]')
-        let text = "Tasks Did Not Match"
-        console.log(text)
-        alert("Tasks Did Not Match");
-    } else if (first == new_data && first != '' && new_data != '') {
-        alert('Task Added')
-
-        // get old data and slap it to the new data
-        var old_data = JSON.parse(localStorage.getItem('data'))
-        old_data.push(new_data)
-
-        // clear inputs
-        firstInputField.value = ""
-        secondInputField.value = null
-
-        // save the old + new data to local storage
-        localStorage.setItem('data', JSON.stringify(old_data))
-        let myData = JSON.parse(localStorage.getItem('data'))
-        console.log(myData)
+        // alphabetical order
+        toDoArray.sort((a, b) => {
+                if (a > b) return 1
+                if (a < b) return -1
+                return 0
+            })
+            // ascending order
+        toDoArray.sort((a, b) => a - b)
+        console.log(toDoArray)
     }
-})
+    toDoArray.push(userData) // pushing or adding user data
 
-viewToDoButton.addEventListener('click', function myFunction() {
-    toDoContainer.style.display = 'flex'
-
-    // if there is indeed data then continue
-    if (localStorage.getItem('data') != null) {
-        let paragraph = document.createElement('p')
-        paragraph.classList.add('paragraph-styling')
-        paragraph.innerText = JSON.parse(localStorage.getItem('data')).splice(-1)[0]
-        toDoContainer.appendChild(paragraph)
-
-        paragraph.addEventListener('click', function() {
-            paragraph.style.textDecoration = "line-through"
-            localStorage.remove();
+    // alphabetical order
+    toDoArray.sort((a, b) => {
+            if (a > b) return 1
+            if (a < b) return -1
+            return 0
         })
-        paragraph.addEventListener('dblclick', function() {
-            toDoContainer.removeChild(paragraph)
-            localStorage.clear()
-        })
+        // ascending order
+    toDoArray.sort((a, b) => a - b)
+    console.log(toDoArray)
+    localStorage.setItem("ToDoTask", JSON.stringify(toDoArray)) // transforming js object into a json string
+    showTasks() // calling showTasks function
+    addTaskButton.classList.remove("active") // deactivate the add button
+}
+
+// function to add task list inside ul
+function showTasks() {
+    let getLocalStorage = localStorage.getItem("ToDoTask") // getting local storage
+    if (getLocalStorage == null) { // if local storage is empty
+        toDoArray = [] // creating an empty array
+    } else {
+        toDoArray = JSON.parse(getLocalStorage) // transforming json string into a js object
+
+        // alphabetical order
+        toDoArray.sort((a, b) => {
+                if (a > b) return 1
+                if (a < b) return -1
+                return 0
+            })
+            // ascending order
+        toDoArray.sort((a, b) => a - b)
+        console.log(toDoArray)
     }
-})
 
-sortToDoButton.addEventListener('click', function() {
-    toDoContainer.style.display = 'flex'
-    toDoOrderedList.style.display = 'block'
-    let myData = JSON.parse(localStorage.getItem('data'))
-    sortedData = myData.sort(function(a, b) {
-        return a.localeCompare(b); //using String.prototype.localCompare()
-    });
-
-    const myList = new Vue({
-        el: '#toDoSortedContainer',
-        data: {
-            items: sortedData
-        }
+    const pendingNumber = document.querySelector("#pendingNumber")
+    pendingNumber.textContent = toDoArray.length // passing the length value in pendingNumber
+    if (toDoArray.length > 0) { // if array length is greater than zero
+        deleteAllButton.classList.add("active") // active the clear all button
+    } else {
+        deleteAllButton.classList.remove("active") // unactive the clear all button
+    }
+    let newLiTag = ''
+    toDoArray.forEach((element, index) => {
+        newLiTag += `<li> ${element} <span class="mySpan"><button class="spanOne" onclick='editTask(${index})'>EDIT</button> <button class="spanTwo" onclick='deleteTask(${index})'><i class="far fa-trash-alt">DEL</i></button></span></li>`
     })
+    toDoList.innerHTML = newLiTag // adding new li tag inside ul tag
+    firstInputField.value = '' // once task added leave the input field blank
+    secondInputField.value = '' // once task edited leave the input field blank
+}
 
-    console.log(myData)
-    console.log(sortedData)
+// edit task function
+function editTask(index) {
+    secondInputField.value = index
+    let getLocalStorage = localStorage.getItem("ToDoTask")
+    toDoArray = JSON.parse(getLocalStorage)
 
+    // alphabetical order
+    toDoArray.sort((a, b) => {
+            if (a > b) return 1
+            if (a < b) return -1
+            return 0
+        })
+        // ascending order
+    toDoArray.sort((a, b) => a - b)
+    console.log(toDoArray)
+
+    if (firstInputField.value == secondInputField.value) { // if array length is greater than zero
+        editTaskButton.classList.remove("active") // active the clear all button
+    } else {
+        editTaskButton.classList.add("active") // unactive the clear all button
+    }
+    firstInputField.value = toDoArray[index]
+    addTaskButton.style.display = "none"
+    editTaskButton.style.display = "block"
+}
+
+editTaskButton.addEventListener("click", () => {
+    let getLocalStorage = localStorage.getItem("ToDoTask")
+    toDoArray = JSON.parse(getLocalStorage)
+    editTaskButton.classList.add("active") // activate the edit button
+    addTaskButton.classList.remove("active") // deactivate the add button
+
+    // alphabetical order
+    toDoArray.sort((a, b) => {
+            if (a > b) return 1
+            if (a < b) return -1
+            return 0
+        })
+        // ascending order
+    toDoArray.sort((a, b) => a - b)
+    console.log(toDoArray)
+    let id = secondInputField.value
+    toDoArray[id] = firstInputField.value
+    addTaskButton.style.display = "block"
+    editTaskButton.style.display = "none"
+    firstInputField.value = ""
+    localStorage.setItem("ToDoTask", JSON.stringify(toDoArray))
+    showTasks()
 })
+
+// delete task function
+function deleteTask(index) {
+    let getLocalStorage = localStorage.getItem("ToDoTask") // getting local storage
+    toDoArray = JSON.parse(getLocalStorage) // transforming json string into a js object
+    toDoArray.splice(index, 1) // delete or remove the particular indexed li
+
+    // alphabetical order
+    toDoArray.sort((a, b) => {
+            if (a > b) return 1
+            if (a < b) return -1
+            return 0
+        })
+        // ascending order
+    toDoArray.sort((a, b) => a - b)
+    console.log(toDoArray)
+
+    // after remove the li again update the local storage
+    localStorage.setItem("ToDoTask", JSON.stringify(toDoArray)) // transforming js object into a json string
+    showTasks() // calling showTasks function
+}
+
+deleteAllButton.onclick = () => {
+    toDoArray = [] // empty the array
+
+    // after clear all tasks again update the local storage
+    localStorage.setItem("ToDoTask", JSON.stringify(toDoArray)) // transforming js object into a json string
+    showTasks() // calling showTasks function
+    addTaskButton.classList.remove("active") // deactivate the add button
+    editTaskButton.classList.remove("active") // deactivate the edit button
+}
