@@ -52,8 +52,10 @@ class Operator extends User {
     constructor(firstName, secondName, exampleDataList, newTask) {
         super(firstName, secondName, exampleDataList)
         this._newTask = newTask
+        this._toDoArray = []
 
         newTask = ""
+        toDoArray = []
 
         // getting all required elements
         const firstInputField = document.querySelector('#firstInputField')
@@ -66,6 +68,14 @@ class Operator extends User {
 
     // function to add task list inside ul
     showTasks() {
+        // getting all required elements
+        const firstInputField = document.querySelector('#firstInputField')
+        const secondInputField = document.querySelector('#secondInputField')
+        const addTaskButton = document.querySelector('#addToDo')
+        const editTaskButton = document.querySelector('#editToDo')
+        const toDoList = document.querySelector('#toDoContainer')
+        const deleteAllButton = document.querySelector('#clearAll')
+
         let getLocalStorage = localStorage.getItem("ToDoTask") // getting local storage
         if (getLocalStorage == null) { // if local storage is empty
             toDoArray = [] // creating an empty array
@@ -101,6 +111,14 @@ class Operator extends User {
 
     // edit task function
     editTask(index) {
+        // getting all required elements
+        const firstInputField = document.querySelector('#firstInputField')
+        const secondInputField = document.querySelector('#secondInputField')
+        const addTaskButton = document.querySelector('#addToDo')
+        const editTaskButton = document.querySelector('#editToDo')
+        const toDoList = document.querySelector('#toDoContainer')
+        const deleteAllButton = document.querySelector('#clearAll')
+
         secondInputField.value = index
         let getLocalStorage = localStorage.getItem("ToDoTask")
         toDoArray = JSON.parse(getLocalStorage)
@@ -147,6 +165,14 @@ class Operator extends User {
     }
 
     addThyTask() {
+        // getting all required elements
+        const firstInputField = document.querySelector('#firstInputField')
+        const secondInputField = document.querySelector('#secondInputField')
+        const addTaskButton = document.querySelector('#addToDo')
+        const editTaskButton = document.querySelector('#editToDo')
+        const toDoList = document.querySelector('#toDoContainer')
+        const deleteAllButton = document.querySelector('#clearAll')
+
         let userData = firstInputField.value // getting user entered value
         let getLocalStorage = localStorage.getItem("ToDoTask") // getting local storage
         if (getLocalStorage == null) { // if local storage is empty
@@ -181,6 +207,14 @@ class Operator extends User {
     }
 
     editThyTask() {
+        // getting all required elements
+        const firstInputField = document.querySelector('#firstInputField')
+        const secondInputField = document.querySelector('#secondInputField')
+        const addTaskButton = document.querySelector('#addToDo')
+        const editTaskButton = document.querySelector('#editToDo')
+        const toDoList = document.querySelector('#toDoContainer')
+        const deleteAllButton = document.querySelector('#clearAll')
+
         let getLocalStorage = localStorage.getItem("ToDoTask")
         toDoArray = JSON.parse(getLocalStorage)
         editTaskButton.classList.add("active") // activate the edit button
@@ -205,6 +239,14 @@ class Operator extends User {
     }
 
     deleteAllThyTask() {
+        // getting all required elements
+        const firstInputField = document.querySelector('#firstInputField')
+        const secondInputField = document.querySelector('#secondInputField')
+        const addTaskButton = document.querySelector('#addToDo')
+        const editTaskButton = document.querySelector('#editToDo')
+        const toDoList = document.querySelector('#toDoContainer')
+        const deleteAllButton = document.querySelector('#clearAll')
+
         toDoArray = [] // empty the array
 
         // after clear all tasks again update the local storage
@@ -214,14 +256,22 @@ class Operator extends User {
         editTaskButton.classList.remove("active") // deactivate the edit button
     }
 
-    // onKeyUp() {
-    //     let userData = firstInputField.value // getting user entered value
-    //     if (userData.trim() != 0) { // if user values aren't only spaces
-    //         addTaskButton.classList.add("active") // activate the add button
-    //     } else {
-    //         addTaskButton.classList.remove("active") // deactivate the add button
-    //     }
-    // }
+    onKeyUp() {
+        // getting all required elements
+        const firstInputField = document.querySelector('#firstInputField')
+        const secondInputField = document.querySelector('#secondInputField')
+        const addTaskButton = document.querySelector('#addToDo')
+        const editTaskButton = document.querySelector('#editToDo')
+        const toDoList = document.querySelector('#toDoContainer')
+        const deleteAllButton = document.querySelector('#clearAll')
+
+        let userData = firstInputField.value // getting user entered value
+        if (userData.trim() != 0) { // if user values aren't only spaces
+            addTaskButton.classList.add("active") // activate the add button
+        } else {
+            addTaskButton.classList.remove("active") // deactivate the add button
+        }
+    }
 
     set newTask(value) {
         if (value == this.confirmedTask && value != '' && this.confirmedTask != '') {
@@ -274,7 +324,9 @@ function validateUser(event) {
 {
     const myUser = new Operator()
 
-    function thyTask() {}
+    function thyTask(e) {
+        e.preventDefault()
+    }
 
     // getting all required elements
     const firstInputField = document.querySelector('#firstInputField')
@@ -284,7 +336,7 @@ function validateUser(event) {
     const toDoList = document.querySelector('#toDoContainer')
     const deleteAllButton = document.querySelector('#clearAll')
 
-    // firstInputField.onkeyup = myUser.onKeyUp()
+    firstInputField.onkeyup = myUser.onKeyUp()
     myUser.showTasks() // calling showTasks function
 
     // if user click on the add button
