@@ -54,6 +54,177 @@ class Operator extends User {
         this._newTask = newTask
 
         newTask = ""
+
+        // getting all required elements
+        const firstInputField = document.querySelector('#firstInputField')
+        const secondInputField = document.querySelector('#secondInputField')
+        const addTaskButton = document.querySelector('#addToDo')
+        const editTaskButton = document.querySelector('#editToDo')
+        const toDoList = document.querySelector('#toDoContainer')
+        const deleteAllButton = document.querySelector('#clearAll')
+
+        firstInputField.onkeyup = () => {
+            let userData = firstInputField.value // getting user entered value
+            if (userData.trim() != 0) { // if user values aren't only spaces
+                addTaskButton.classList.add("active") // activate the add button
+            } else {
+                addTaskButton.classList.remove("active") // deactivate the add button
+            }
+        }
+
+
+        showTasks() // calling showTasks function
+
+        // if user click on the add button
+        addTaskButton.onclick = () => {
+            let userData = firstInputField.value // getting user entered value
+            let getLocalStorage = localStorage.getItem("ToDoTask") // getting local storage
+            if (getLocalStorage == null) { // if local storage is empty
+                toDoArray = [] // creating an empty array
+            } else {
+                toDoArray = JSON.parse(getLocalStorage) // transforming json string into a js object
+
+                // alphabetical order
+                toDoArray.sort((a, b) => {
+                        if (a > b) return 1
+                        if (a < b) return -1
+                        return 0
+                    })
+                    // ascending order
+                toDoArray.sort((a, b) => a - b)
+                console.log(toDoArray)
+            }
+            toDoArray.push(userData) // pushing or adding user data
+
+            // alphabetical order
+            toDoArray.sort((a, b) => {
+                    if (a > b) return 1
+                    if (a < b) return -1
+                    return 0
+                })
+                // ascending order
+            toDoArray.sort((a, b) => a - b)
+            console.log(toDoArray)
+            localStorage.setItem("ToDoTask", JSON.stringify(toDoArray)) // transforming js object into a json string
+            showTasks() // calling showTasks function
+            addTaskButton.classList.remove("active") // deactivate the add button
+        }
+
+        editTaskButton.addEventListener("click", () => {
+            let getLocalStorage = localStorage.getItem("ToDoTask")
+            toDoArray = JSON.parse(getLocalStorage)
+            editTaskButton.classList.add("active") // activate the edit button
+            addTaskButton.classList.remove("active") // deactivate the add button
+
+            // alphabetical order
+            toDoArray.sort((a, b) => {
+                    if (a > b) return 1
+                    if (a < b) return -1
+                    return 0
+                })
+                // ascending order
+            toDoArray.sort((a, b) => a - b)
+            console.log(toDoArray)
+            let id = secondInputField.value
+            toDoArray[id] = firstInputField.value
+            addTaskButton.style.display = "block"
+            editTaskButton.style.display = "none"
+            firstInputField.value = ""
+            localStorage.setItem("ToDoTask", JSON.stringify(toDoArray))
+            showTasks()
+        })
+
+        deleteAllButton.onclick = () => {
+            toDoArray = [] // empty the array
+
+            // after clear all tasks again update the local storage
+            localStorage.setItem("ToDoTask", JSON.stringify(toDoArray)) // transforming js object into a json string
+            showTasks() // calling showTasks function
+            addTaskButton.classList.remove("active") // deactivate the add button
+            editTaskButton.classList.remove("active") // deactivate the edit button
+        }
+    }
+
+    // function to add task list inside ul
+    showTasks() {
+        let getLocalStorage = localStorage.getItem("ToDoTask") // getting local storage
+        if (getLocalStorage == null) { // if local storage is empty
+            toDoArray = [] // creating an empty array
+        } else {
+            toDoArray = JSON.parse(getLocalStorage) // transforming json string into a js object
+
+            // alphabetical order
+            toDoArray.sort((a, b) => {
+                    if (a > b) return 1
+                    if (a < b) return -1
+                    return 0
+                })
+                // ascending order
+            toDoArray.sort((a, b) => a - b)
+            console.log(toDoArray)
+        }
+
+        const pendingNumber = document.querySelector("#pendingNumber")
+        pendingNumber.textContent = toDoArray.length // passing the length value in pendingNumber
+        if (toDoArray.length > 0) { // if array length is greater than zero
+            deleteAllButton.classList.add("active") // active the clear all button
+        } else {
+            deleteAllButton.classList.remove("active") // unactive the clear all button
+        }
+        let newLiTag = ''
+        toDoArray.forEach((element, index) => {
+            newLiTag += `<li> ${element} <span class="mySpan"><button class="spanOne" onclick='editTask(${index})'>EDIT</button> <button class="spanTwo" onclick='deleteTask(${index})'><i class="far fa-trash-alt">DEL</i></button></span></li>`
+        })
+        toDoList.innerHTML = newLiTag // adding new li tag inside ul tag
+        firstInputField.value = '' // once task added leave the input field blank
+        secondInputField.value = '' // once task edited leave the input field blank
+    }
+
+    // edit task function
+    editTask(index) {
+        secondInputField.value = index
+        let getLocalStorage = localStorage.getItem("ToDoTask")
+        toDoArray = JSON.parse(getLocalStorage)
+
+        // alphabetical order
+        toDoArray.sort((a, b) => {
+                if (a > b) return 1
+                if (a < b) return -1
+                return 0
+            })
+            // ascending order
+        toDoArray.sort((a, b) => a - b)
+        console.log(toDoArray)
+
+        if (firstInputField.value == secondInputField.value) { // if array length is greater than zero
+            editTaskButton.classList.remove("active") // active the clear all button
+        } else {
+            editTaskButton.classList.add("active") // unactive the clear all button
+        }
+        firstInputField.value = toDoArray[index]
+        addTaskButton.style.display = "none"
+        editTaskButton.style.display = "block"
+    }
+
+    // delete task function
+    deleteTask(index) {
+        let getLocalStorage = localStorage.getItem("ToDoTask") // getting local storage
+        toDoArray = JSON.parse(getLocalStorage) // transforming json string into a js object
+        toDoArray.splice(index, 1) // delete or remove the particular indexed li
+
+        // alphabetical order
+        toDoArray.sort((a, b) => {
+                if (a > b) return 1
+                if (a < b) return -1
+                return 0
+            })
+            // ascending order
+        toDoArray.sort((a, b) => a - b)
+        console.log(toDoArray)
+
+        // after remove the li again update the local storage
+        localStorage.setItem("ToDoTask", JSON.stringify(toDoArray)) // transforming js object into a json string
+        showTasks() // calling showTasks function
     }
 
     set newTask(value) {
@@ -129,7 +300,6 @@ function validateUser(event) {
     newUser.secondName = w
     newUser.exampleDataList = x
     newUser.newTask = y
-    newUser.confirmedTask = z
 
     document.writeln("<p>Form Submitted On:</p>")
     document.writeln(new Date())
@@ -155,16 +325,6 @@ function validateUser(event) {
         // viewToDoButton.addEventListener('click', myUser.saveTask())
 
         myUser.viewTask()
-
-    }
-
-    function sortTask() {
-
-        let sortToDoButton = document.querySelector('#sortToDo')
-
-        sortToDoButton.addEventListener('click', myUser.sortTask())
-
-        // myUser.sortTask()
 
     }
 }
