@@ -116,6 +116,8 @@ firstInputField.onkeyup = () => {
 
 showTasks() // calling showTasks function
 
+recount() // calling recount function
+
 // if user click on the add button
 addTaskButton.onclick = () => {
     let userData = firstInputField.value // getting user entered value
@@ -148,6 +150,7 @@ addTaskButton.onclick = () => {
     console.log(toDoArray)
     localStorage.setItem("ToDoTask", JSON.stringify(toDoArray)) // transforming js object into a json string
     showTasks() // calling showTasks function
+    recount() // calling recount function
     addTaskButton.classList.remove("active") // deactivate the add button
 }
 
@@ -179,11 +182,12 @@ function showTasks() {
     }
     let newLiTag = ''
     toDoArray.forEach((element, index) => {
-        newLiTag += `<li> ${element} <span class="mySpan"><button class="spanOne" onclick='editTask(${index})'>EDIT</button> <button class="spanTwo" onclick='deleteTask(${index})'><i class="far fa-trash-alt">DEL</i></button></span></li>`
+        newLiTag += `<li> ${element} <span class="mySpan"><input type="checkbox" onchange="recount()" class="spanThree"> </input><button class="spanOne" onclick='editTask(${index})'>EDIT</button> <button class="spanTwo" onclick='deleteTask(${index})'><i class="far fa-trash-alt">DEL</i></button></span></li>`
     })
     toDoList.innerHTML = newLiTag // adding new li tag inside ul tag
     firstInputField.value = '' // once task added leave the input field blank
     secondInputField.value = '' // once task edited leave the input field blank
+    recount() // calling recount function
 }
 
 // edit task function
@@ -210,6 +214,7 @@ function editTask(index) {
     firstInputField.value = toDoArray[index]
     addTaskButton.style.display = "none"
     editTaskButton.style.display = "block"
+    recount() // calling recount function
 }
 
 editTaskButton.addEventListener("click", () => {
@@ -233,7 +238,8 @@ editTaskButton.addEventListener("click", () => {
     editTaskButton.style.display = "none"
     firstInputField.value = ""
     localStorage.setItem("ToDoTask", JSON.stringify(toDoArray))
-    showTasks()
+    showTasks() // calling showTasks function
+    recount() // calling recount function
 })
 
 // delete task function
@@ -255,6 +261,7 @@ function deleteTask(index) {
     // after remove the li again update the local storage
     localStorage.setItem("ToDoTask", JSON.stringify(toDoArray)) // transforming js object into a json string
     showTasks() // calling showTasks function
+    recount() // calling recount function
 }
 
 deleteAllButton.onclick = () => {
@@ -263,6 +270,16 @@ deleteAllButton.onclick = () => {
     // after clear all tasks again update the local storage
     localStorage.setItem("ToDoTask", JSON.stringify(toDoArray)) // transforming js object into a json string
     showTasks() // calling showTasks function
+    recount() // calling recount function
     addTaskButton.classList.remove("active") // deactivate the add button
     editTaskButton.classList.remove("active") // deactivate the edit button
+}
+
+// document.querySelector('input[type="checkbox"]').addEventListener('change', () => recount())
+
+// counting function
+function recount() {
+    const myToDoList = document.querySelector('.myToDos')
+    const count = myToDoList.querySelectorAll("input[type='checkbox']:checked").length
+    document.querySelector("#pendingNum").textContent = `${count}`
 }

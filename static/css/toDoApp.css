@@ -98,11 +98,9 @@ p {
     list-style: none;
     height: 45px;
     line-height: 45px;
-    position: relative;
     background: #f2f2f2;
     border-radius: 3px;
     margin-bottom: 8px;
-    padding: 0 15px;
     cursor: default;
     overflow: hidden;
 }
@@ -110,6 +108,17 @@ p {
 .spanOne,
 .spanTwo {
     width: 45px;
+    height: 45px;
+    text-align: center;
+    border: solid 1px #8e49e8;
+    border-radius: 3px;
+    background: #e74c3c;
+    color: rgb(255, 255, 255);
+}
+
+.spanThree {
+    width: 25px;
+    height: 25px;
     text-align: center;
     border: solid 1px #8e49e8;
     border-radius: 3px;
@@ -118,26 +127,17 @@ p {
 }
 
 #toDoContainer li .mySpan {
-    flex-direction: row;
-    justify-content: space-evenly;
-    position: absolute;
-    right: -110px;
+    align-items: center;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-#toDoContainer li:hover .mySpan {
-    right: 0;
-}
-
 .to-dos .xanthophloea {
-    display: flex;
-    flex-direction: row;
     width: 100%;
-    align-items: center;
+    /* align-items    : center; */
     margin-top: 25px;
     padding: 0 0 0 25px;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
 .xanthophloea button {
@@ -156,4 +156,56 @@ p {
 .xanthophloea button.active {
     opacity: 1;
     pointer-events: auto;
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+
+@media only screen and (max-width: 600px) {
+    #toDoContainer li {
+        padding-left: 15px;
+    }
+    #toDoContainer li .mySpan {
+        float: right;
+        width: 120px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+
+/*  Devices between 600px and 992px) */
+
+@media only screen and (min-width: 600px) and (max-width: 960px) {
+    #toDoContainer li {
+        padding-left: 15px;
+    }
+    #toDoContainer li .mySpan {
+        float: right;
+        width: 120px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+
+/* Large devices (laptops/desktops, 960px and up) */
+
+@media only screen and (min-width: 960px) {
+    #toDoContainer li {
+        position: relative;
+        padding: 0 15px;
+    }
+    #toDoContainer li .mySpan {
+        flex-direction: row;
+        justify-content: space-evenly;
+        position: absolute;
+        right: -125px;
+        cursor: pointer;
+    }
+    #toDoContainer li:hover .mySpan {
+        right: 0;
+    }
 }
