@@ -182,7 +182,7 @@ function showTasks() {
     }
     let newLiTag = ''
     toDoArray.forEach((element, index) => {
-        newLiTag += `<li> ${element} <span class="mySpan"><input type="checkbox" class="spanThree"> </input><button class="spanOne" onclick='editTask(${index})'>EDIT</button> <button class="spanTwo" onclick='deleteTask(${index})'><i class="far fa-trash-alt">DEL</i></button></span></li>`
+        newLiTag += `<li> ${element} <span class="mySpan"><input type="checkbox" onchange="recount()" class="spanThree"> </input><button class="spanOne" onclick='editTask(${index})'>EDIT</button> <button class="spanTwo" onclick='deleteTask(${index})'><i class="far fa-trash-alt">DEL</i></button></span></li>`
     })
     toDoList.innerHTML = newLiTag // adding new li tag inside ul tag
     firstInputField.value = '' // once task added leave the input field blank
@@ -275,7 +275,7 @@ deleteAllButton.onclick = () => {
     editTaskButton.classList.remove("active") // deactivate the edit button
 }
 
-document.querySelector('input[type="checkbox"]').addEventListener('change', () => recount())
+// document.querySelector('input[type="checkbox"]').addEventListener('change', () => recount())
 
 // counting function
 function recount() {
